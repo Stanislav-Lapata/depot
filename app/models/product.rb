@@ -11,6 +11,16 @@ class Product < ActiveRecord::Base
 		message: 'must be a URL for GIF, JPG or PNG image'
 	}
 
+	def add_to_cart(cart)
+		line_item = line_items.find_by(cart_id: cart.id)
+		if line_item
+      line_item.quantity += 1
+    else
+      line_item = line_items.build(cart_id: cart.id)
+    end
+    line_item
+	end
+
 	private
 
 	def ensure_not_referenced_by_any_line_item
@@ -21,4 +31,5 @@ class Product < ActiveRecord::Base
 			return false
 		end
 	end
+
 end
