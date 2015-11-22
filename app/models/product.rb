@@ -1,5 +1,7 @@
 class Product < ActiveRecord::Base
 	has_many :line_items
+	has_many :images
+	accepts_nested_attributes_for :images, allow_destroy: true
 
 	mount_uploader :image_url, ImageUploader
 
